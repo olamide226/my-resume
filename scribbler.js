@@ -1,11 +1,11 @@
 // utilities
-var get = function (selector, scope) {
-  scope = scope ? scope : document;
+let get = function (selector, scope) {
+  scope = scope || document;
   return scope.querySelector(selector);
 };
 
-var getAll = function (selector, scope) {
-  scope = scope ? scope : document;
+let getAll = function (selector, scope) {
+  scope = scope || document;
   return scope.querySelectorAll(selector);
 };
 
@@ -15,7 +15,7 @@ if (document.getElementsByClassName('demo').length > 0) {
   var txt = `Hey there, I am Olamide Adebayo.
             A team-oriented and self-motivated engineer with personal integrity who seeks to drive excellence in implementation of applications to achieve strategic goals. Seeking the opportunity to leverage expertise across various IT platforms to develop and integrate cutting-edge solutions.
 
-            ###my hobbies include
+            ## my hobbies include ##
 
             - Playing and watching football
             - Playing video games
@@ -23,7 +23,7 @@ if (document.getElementsByClassName('demo').length > 0) {
             `;
   var speed = 60;
 
-  function typeItOut () {
+  function typeItOut() {
     if (i < txt.length) {
       document.getElementsByClassName('demo')[0].innerHTML += txt.charAt(i);
       i++;
@@ -35,31 +35,31 @@ if (document.getElementsByClassName('demo').length > 0) {
 }
 
 // toggle tabs on codeblock
-window.addEventListener("load", function() {
+window.addEventListener("load", function () {
   // get all tab_containers in the document
-  var tabContainers = getAll(".tab__container");
+  let tabContainers = getAll(".tab__container");
 
   // bind click event to each tab container
-  for (var i = 0; i < tabContainers.length; i++) {
-    get('.tab__menu', tabContainers[i]).addEventListener("click", tabClick);
+  for (const element of tabContainers) {
+    get('.tab__menu', element).addEventListener("click", tabClick);
   }
 
   // each click event is scoped to the tab_container
-  function tabClick (event) {
-    var scope = event.currentTarget.parentNode;
-    var clickedTab = event.target;
-    var tabs = getAll('.tab', scope);
-    var panes = getAll('.tab__pane', scope);
-    var activePane = get(`.${clickedTab.getAttribute('data-tab')}`, scope);
+  function tabClick(event) {
+    let scope = event.currentTarget.parentNode;
+    let clickedTab = event.target;
+    let tabs = getAll('.tab', scope);
+    let panes = getAll('.tab__pane', scope);
+    let activePane = get(`.${clickedTab.getAttribute('data-tab')}`, scope);
 
     // remove all active tab classes
-    for (var i = 0; i < tabs.length; i++) {
-      tabs[i].classList.remove('active');
+    for (const tab of tabs) {
+      tab.classList.remove('active');
     }
 
     // remove all active pane classes
-    for (var i = 0; i < panes.length; i++) {
-      panes[i].classList.remove('active');
+    for (const pane of panes) {
+      pane.classList.remove('active');
     }
 
     // apply active classes on desired tab and pane
@@ -69,13 +69,13 @@ window.addEventListener("load", function() {
 });
 
 //in page scrolling for documentaiton page
-var btns = getAll('.js-btn');
-var sections = getAll('.js-section');
+let btns = getAll('.js-btn');
+let sections = getAll('.js-section');
 
 function setActiveLink(event) {
   // remove all active tab classes
-  for (var i = 0; i < btns.length; i++) {
-    btns[i].classList.remove('selected');
+  for (const btn of btns) {
+    btn.classList.remove('selected');
   }
 
   event.target.classList.add('selected');
@@ -92,41 +92,18 @@ function smoothScrollTo(element, event) {
 }
 
 if (btns.length && sections.length > 0) {
-// for (var i = 0; i<btns.length; i++) {
-//   btns[i].addEventListener('click', function(event) {
-//     smoothScrollTo(sections[i], event);
-//   });
-// }
-  btns[0].addEventListener('click', function (event) {
-    smoothScrollTo(sections[0], event);
-  });
-
-  btns[1].addEventListener('click', function (event) {
-    smoothScrollTo(sections[1], event);
-  });
-
-  btns[2].addEventListener('click', function (event) {
-    smoothScrollTo(sections[2], event);
-  });
-
-  btns[3].addEventListener('click', function (event) {
-    smoothScrollTo(sections[3], event);
-  });
-
-  btns[4].addEventListener('click', function (event) {
-    smoothScrollTo(sections[4], event);
-  });
-
-  btns[5].addEventListener('click', function (event) {
-    smoothScrollTo(sections[5], event);
-  });
+  for (let i = 0; i < btns.length; i++) {
+    btns[i].addEventListener('click', function (event) {
+      smoothScrollTo(sections[i], event);
+    });
+  }
 }
 
 // fix menu to page-top once user starts scrolling
 window.addEventListener('scroll', function () {
-  var docNav = get('.doc__nav > ul');
+  let docNav = get('.doc__nav > ul');
 
-  if( docNav) {
+  if (docNav) {
     if (window.pageYOffset > 63) {
       docNav.classList.add('fixed');
     } else {
@@ -136,10 +113,10 @@ window.addEventListener('scroll', function () {
 });
 
 // responsive navigation
-var topNav = get('.menu');
-var icon = get('.toggle');
+let topNav = get('.menu');
+let icon = get('.toggle');
 
-window.addEventListener('load', function(){
+window.addEventListener('load', function () {
   function showNav() {
     if (topNav.className === 'menu') {
       topNav.className += ' responsive';
